@@ -2,6 +2,10 @@ package doublehashmap;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -340,4 +344,47 @@ public class DoubleHashMapTest
 		assertEquals(null, h.get("E"));
 		assertEquals(0, h.size());
 	}
+	
+	
+	@Test
+	public void testExploreData() throws FileNotFoundException, IOException {
+		exploreData("bin/datasetA.txt");
+	}
+	
+	/**
+	 * Inserts "datasetA.txt" into a hash map and reports the collision statistics
+	 * @param pathToFile
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	public void exploreData(String pathToFile) throws FileNotFoundException, IOException {
+	    
+		DoubleHashMap<String, Double> h = new DoubleHashMap<String, Double>(2000, 1, 4271, 223);
+	    BufferedReader br = new BufferedReader(new FileReader(pathToFile));
+	    try {
+	        String line = br.readLine();
+	        while (line != null) {
+	            String[] pieces = line.trim().split("\\s+");
+	            if (pieces.length == 4){
+	                 h.put(pieces[0], Double.valueOf(pieces[1]));
+	                 System.out.println(pieces[0] + " --- " + pieces[1]);
+	                 System.out.println(h.size());
+	                 if(h.size() == 1642)
+	                 {
+	                	 System.out.println("about to break");
+	                 }
+	            }
+	            line = br.readLine();
+	        }
+	    } finally {
+	        br.close();
+	    }
+	    
+	    System.out.println("Put Collisions: " + h.putCollisions());
+	    System.out.println("Put Failures: " + h.putFailures());
+	    System.out.println("Total Collisions: " + h.totalCollisions());   
+        System.out.println("Max Collisions: " + h.maxCollisions());
+	        
+	}
+	
 }

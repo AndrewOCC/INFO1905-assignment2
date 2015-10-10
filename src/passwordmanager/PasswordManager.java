@@ -36,12 +36,19 @@ public class PasswordManager
 	// - Uses sdbm hash function
 	public Long hash(String password)  
 	{
-		Long hash = 0L;
-		for (char c : password.toCharArray()) 
+		if(password != null)
 		{
-			hash = (int)c + (hash << 6) + (hash << 16) - hash;
+			Long hash = 0L;
+			for (char c : password.toCharArray()) 
+			{
+				hash = (int)c + (hash << 6) + (hash << 16) - hash;
+			}
+			return hash;
 		}
-		return hash;
+		else 
+		{
+			return null;
+		}
 	}
 	
 	//Userbase methods
@@ -106,7 +113,7 @@ public class PasswordManager
 		{
 			return NO_USER;
 		}
-		else if (currentUser.getPassword(NAME) == hash(password))
+		else if (currentUser.getPassword(NAME).equals(hash(password)))
 		{
 			return username;
 		}
@@ -125,11 +132,13 @@ public class PasswordManager
 		}
 		else
 		{
-			Long userPassword = currentUser.getPassword(password);
-			if (userPassword == null) {
+			Long hashPassword = hash(password);
+			Long appPassword = currentUser.getPassword(appName);
+			if (appPassword == null) {
 				return NO_APP;
 			}
-			else if (userPassword == hash(password))
+			
+			else if (appPassword.equals(hash(password)))
 			{
 				return username;
 			}
