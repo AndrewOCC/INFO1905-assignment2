@@ -15,7 +15,7 @@ public class User {
 	public User(String username) 
 	{
 		this.username = username;
-		this.passwordMap = new DoubleHashMap<String, Long>(1, 24, 11);
+		this.passwordMap = new DoubleHashMap<String, Long>(20, 1, 24, 11);
 	}
 	
 	//Returns username
