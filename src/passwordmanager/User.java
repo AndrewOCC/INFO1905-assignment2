@@ -27,14 +27,23 @@ public class User {
 	//Returns the password hash for a given app (if present)
 	public Long getPassword(String appName) 
 	{
-		return passwordMap.get(appName);
+		if(appName != null)
+		{
+			return passwordMap.get(appName);
+		}
+		else {
+			return null;
+		}
 	}
 	
 	
 	// set method
 	public void setPassword(String appName, Long passwordHash)
 	{
-		passwordMap.put(appName, passwordHash);
+		if(appName != null && passwordHash != null)
+		{
+			passwordMap.put(appName, passwordHash);
+		}
 	}
 
 }

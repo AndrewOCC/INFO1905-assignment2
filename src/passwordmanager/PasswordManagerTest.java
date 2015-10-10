@@ -16,7 +16,7 @@ public class PasswordManagerTest {
 
 	@Test 
 	public void DatasetCTest() throws FileNotFoundException, IOException {
-		int collisions = printHashCollisions("bin/datasetC.txt");
+		int collisions = printHashCollisions("bin/datasetB.txt");
 		System.out.println(collisions);
 	}
 	
@@ -25,7 +25,7 @@ public class PasswordManagerTest {
 	// prints collisions 
 	public int printHashCollisions(String pathToFile) throws FileNotFoundException, IOException  {
 		
-		DoubleHashMap<Long, List<String>> map = new DoubleHashMap<Long, List<String>>(1, 50000, 56897);
+		DoubleHashMap<Long, List<String>> map = new DoubleHashMap<Long, List<String>>(15000, 1, 50000, 56897);
         PasswordManager spm = new PasswordManager();
         
         BufferedReader br = new BufferedReader(new FileReader(pathToFile));
@@ -63,13 +63,6 @@ public class PasswordManagerTest {
         List<Long> hashes = map.keys();
         for (Long hash : hashes)
         {
-        	/*----debug----
-        	System.out.println("------- Hash: " + String.valueOf(hash));
-        	for(String password : map.get(hash))
-    		{
-    			System.out.println(password);
-    		}
-        	-------------*/
         	
         	List<String> passwords = map.get(hash);
         	if (passwords.size() > 1)
@@ -79,7 +72,8 @@ public class PasswordManagerTest {
         }
         
         // debug
-        System.out.println(hashes.size());
+        //System.out.println(hashes.size());
+        
         return collisions;
         
 	}
