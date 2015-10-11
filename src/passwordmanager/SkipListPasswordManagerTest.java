@@ -11,9 +11,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import doublehashmap.DoubleHashMap;
-import skiplist.SkipList;
-
 public class SkipListPasswordManagerTest
 {
 	@Test

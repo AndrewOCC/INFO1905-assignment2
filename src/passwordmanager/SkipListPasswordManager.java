@@ -13,26 +13,34 @@ public class SkipListPasswordManager
 	public static final String NO_APP = "No password found.";
 	public static final String AUTH_FAILURE = "Failed to authenticate user.";
 	public static final String PASSWORD_CONFLICT = "Password already set up.";
+	
+	
 	//Data Stores
 	private SkipList<String, User> userList;
 	
-	//Construct a PasswordManager with 4000 places
-	//Hash parameters should be multiplier=1 modulus=4271 secondaryModulus=647 
+	//Construct a SkipListPasswordManager
 	public SkipListPasswordManager() 
 	{
 		userList = new SkipList<String, User>();
 	}
-	
+
 	//Hash representation of password to be stored on the User object
 	// - Uses sdbm hash function
 	public Long hash(String password)  
 	{
-		Long hash = 0L;
-		for (char c : password.toCharArray()) 
+		if(password != null)
 		{
-			hash = (int)c + (hash << 6) + (hash << 16) - hash;
+			Long hash = 0L;
+			for (char c : password.toCharArray()) 
+			{
+				hash = (int)c + (hash << 6) + (hash << 16) - hash;
+			}
+			return hash;
 		}
-		return hash;
+		else 
+		{
+			return null;
+		}
 	}
 	
 	//Userbase methods
@@ -41,6 +49,7 @@ public class SkipListPasswordManager
 	public List<String> listUsers() 
 	{
 		return this.userList.keys();
+		
 	}
 	
 	// - Return number of users currently stored
@@ -96,7 +105,7 @@ public class SkipListPasswordManager
 		{
 			return NO_USER;
 		}
-		else if (currentUser.getPassword(NAME) == hash(password))
+		else if (currentUser.getPassword(NAME).equals(hash(password)))
 		{
 			return username;
 		}
@@ -115,11 +124,12 @@ public class SkipListPasswordManager
 		}
 		else
 		{
-			Long userPassword = currentUser.getPassword(password);
-			if (userPassword == null) {
+			Long appPassword = currentUser.getPassword(appName);
+			if (appPassword == null) {
 				return NO_APP;
 			}
-			else if (userPassword == hash(password))
+			
+			else if (appPassword.equals(hash(password)))
 			{
 				return username;
 			}

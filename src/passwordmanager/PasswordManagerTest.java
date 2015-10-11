@@ -12,7 +12,6 @@ import java.util.List;
 import org.junit.Test;
 
 import doublehashmap.DoubleHashMap;
-import skiplist.SkipList;
 
 public class PasswordManagerTest
 {
@@ -29,14 +28,6 @@ public class PasswordManagerTest
 		PasswordManager pm = new PasswordManager();
 		assertEquals(new ArrayList<String>(), pm.listUsers());
 		assertEquals(0, pm.numberUsers());
-	}
-	
-	@Test
-	public void testConstructionSize()
-	{
-		PasswordManager pm;
-		pm = new PasswordManager(0);
-		pm = new PasswordManager(-4);
 	}
 	
 	@Test

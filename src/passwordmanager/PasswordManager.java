@@ -132,7 +132,6 @@ public class PasswordManager
 		}
 		else
 		{
-			Long hashPassword = hash(password);
 			Long appPassword = currentUser.getPassword(appName);
 			if (appPassword == null) {
 				return NO_APP;
