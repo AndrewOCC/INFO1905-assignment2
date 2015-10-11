@@ -14,30 +14,34 @@ import org.junit.Test;
 import doublehashmap.DoubleHashMap;
 import skiplist.SkipList;
 
-public class PasswordManagerTest {
-
+public class PasswordManagerTest
+{
 	@Test 
-	public void testHash() throws FileNotFoundException, IOException {
+	public void testHash() throws FileNotFoundException, IOException
+	{
 		int collisions = printHashCollisions("bin/datasetB.txt");
 		System.out.println(collisions);
 	}
 	
 	@Test
-	public void testConstruction() {
+	public void testConstruction()
+	{
 		PasswordManager pm = new PasswordManager();
 		assertEquals(new ArrayList<String>(), pm.listUsers());
 		assertEquals(0, pm.numberUsers());
 	}
 	
 	@Test
-	public void testConstructionSize() {
+	public void testConstructionSize()
+	{
 		PasswordManager pm;
 		pm = new PasswordManager(0);
 		pm = new PasswordManager(-4);
 	}
 	
 	@Test
-	public void testListUsers() {
+	public void testListUsers()
+	{
 		PasswordManager pm = new PasswordManager();
 		List<String> l = new ArrayList<String>();
 		
@@ -96,11 +100,11 @@ public class PasswordManagerTest {
 		Collections.sort(l);
 		Collections.sort(listedUsers);
 		assertEquals(l, listedUsers);		
-		
 	}
 	
 	@Test
-	public void testAddNewUser() {
+	public void testAddNewUser()
+	{
 		PasswordManager pm = new PasswordManager();
 		
 		//Adding regular users ***(check passwords here?)***
@@ -112,11 +116,11 @@ public class PasswordManagerTest {
 		
 		//Adding users that already exist
 		assertEquals("User already exists.", pm.addNewUser("A", "a"));
-		
 	}
 	
 	@Test
-	public void testDeleteUser() {
+	public void testDeleteUser()
+	{
 		PasswordManager pm = new PasswordManager();
 		List<String> l = new ArrayList<String>();
 		
@@ -161,7 +165,8 @@ public class PasswordManagerTest {
 	}
 	
 	@Test
-	public void testAuthenticateUser() {
+	public void testAuthenticateUser()
+	{
 		PasswordManager pm = new PasswordManager();
 		
 		// Building user list
@@ -186,8 +191,8 @@ public class PasswordManagerTest {
 	}
 	
 	@Test
-	public void testAuthenticateApp() {
-		
+	public void testAuthenticateApp()
+	{	
 		PasswordManager pm = new PasswordManager();
 		
 		// Building user list
@@ -211,11 +216,11 @@ public class PasswordManagerTest {
 		
 		// Authenticating with incorrect password
 		assertEquals("Failed to authenticate user.", pm.authenticate("A", "wrong", "app1"));
-		
 	}
 	
 	@Test
-	public void testResetUserPassword() {
+	public void testResetUserPassword()
+	{
 		PasswordManager pm = new PasswordManager();
 		
 		// Building user list
@@ -244,8 +249,8 @@ public class PasswordManagerTest {
 	}
 	
 	@Test
-	public void testResetAppPassword() {
-		
+	public void testResetAppPassword()
+	{	
 		PasswordManager pm = new PasswordManager();
 		
 		// Building user list
@@ -281,8 +286,8 @@ public class PasswordManagerTest {
 	}
 
 	@Test
-	public void testNewAppPassword() {
-		
+	public void testNewAppPassword()
+	{
 		PasswordManager pm = new PasswordManager();
 
 		pm.addNewUser("A", "a");
@@ -307,7 +312,8 @@ public class PasswordManagerTest {
 	}
 	
 	@Test
-	public void testOverFlow() {
+	public void testOverFlow()
+	{
 		/**
 		 * Adds more than the maximum number of users to a password manager.
 		 */

@@ -42,9 +42,9 @@ public class DoubleHashMapTest
 		/**
 		 * "a" has a primary hash of 1, and a secondary hash of 1
 		 * 
-		 *     a
-		 *     A
-		 *     |
+		 * a
+		 * A
+		 * |
 		 * [ ][ ][ ][ ]
 		 * [ ][ ][ ][ ]
 		 * 
@@ -59,9 +59,9 @@ public class DoubleHashMapTest
 		/**
 		 * "b" has a primary hash of 0, and a secondary hash of 1
 		 * 
-		 *  b
-		 *  B
-		 *  |
+		 *b
+		 *B
+		 *|
 		 * [ ][a][ ][ ]
 		 * [ ][A][ ][ ]
 		 * 
@@ -76,15 +76,15 @@ public class DoubleHashMapTest
 		/**
 		 * "c" has a primary hash of 1, and a secondary hash of 1
 		 * 
-		 *     c
-		 *     C
-		 *     |
+		 * c
+		 * C
+		 * |
 		 * [b][a][ ][ ]
 		 * [B][A][ ][ ]
 		 * 
-		 *        c
-		 *        C
-		 *        |
+		 *c
+		 *C
+		 *|
 		 * [b][a][ ][ ]
 		 * [B][A][ ][ ]
 		 * 
@@ -99,27 +99,27 @@ public class DoubleHashMapTest
 		/**
 		 * "d" has a primary hash of 0, and a secondary hash of 1
 		 * 
-		 *  d
-		 *  D
-		 *  |
+		 *d
+		 *D
+		 *|
 		 * [b][a][c][ ]
 		 * [B][A][C][ ]
 		 * 
-		 *     d
-		 *     D
-		 *     |
+		 * d
+		 * D
+		 * |
 		 * [b][a][c][ ]
 		 * [B][A][C][ ]
 		 * 
-		 *        d
-		 *        D
-		 *        |
+		 *d
+		 *D
+		 *|
 		 * [b][a][c][ ]
 		 * [B][A][C][ ]
 		 * 
-		 *           d
-		 *           D
-		 *           |
+		 * d
+		 * D
+		 * |
 		 * [b][a][c][ ]
 		 * [B][A][C][ ]
 		 * 
@@ -143,15 +143,15 @@ public class DoubleHashMapTest
 		/**
 		 * "f" has a primary hash of 0, and a secondary hash of 1
 		 * 
-		 *  f
-		 *  A
-		 *  |
+		 *f
+		 *A
+		 *|
 		 * [b][ ][c][ ]
 		 * [B][ ][C][ ]
 		 * 
-		 *     f
-		 *     A
-		 *     |
+		 * f
+		 * A
+		 * |
 		 * [b][ ][c][ ]
 		 * [B][ ][C][ ]
 		 * 
@@ -167,33 +167,33 @@ public class DoubleHashMapTest
 		/**
 		 * "g" has a primary hash of 1, and a secondary hash of 1
 		 * 
-		 *     g
-		 *     G
-		 *     |
+		 * g
+		 * G
+		 * |
 		 * [b][f][c][d]
 		 * [B][A][C][D]
 		 * 
-		 *        g
-		 *        G
-		 *        |
+		 *g
+		 *G
+		 *|
 		 * [b][f][c][d]
 		 * [B][A][C][D]
 		 * 
-		 *           g
-		 *           G
-		 *           |
+		 * g
+		 * G
+		 * |
 		 * [b][f][c][d]
 		 * [B][A][C][D]
 		 * 
-		 *  g
-		 *  G
-		 *  |
+		 *g
+		 *G
+		 *|
 		 * [b][f][c][d]
 		 * [B][A][C][D]
 		 * 
-		 *     g
-		 *     G
-		 *     |
+		 * g
+		 * G
+		 * |
 		 * [b][f][c][d]
 		 * [B][A][C][D]
 		 * 
@@ -347,8 +347,15 @@ public class DoubleHashMapTest
 	
 	
 	@Test
-	public void testExploreData() throws FileNotFoundException, IOException {
-		exploreData("bin/datasetA.txt");
+	public void testExploreData() throws FileNotFoundException, IOException
+	{
+		exploreData("bin/datasetA.txt", 2000, 1, 4271, 1);
+		exploreData("bin/datasetA.txt", 2000, 1, 4271, 223);
+		exploreData("bin/datasetA.txt", 2000, 1, 4271, 647);
+
+		exploreData("bin/datasetA.txt", 4000, 1, 4271, 1);
+		exploreData("bin/datasetA.txt", 4000, 1, 4271, 223);
+		exploreData("bin/datasetA.txt", 4000, 1, 4271, 647);
 	}
 	
 	/**
@@ -357,34 +364,43 @@ public class DoubleHashMapTest
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public void exploreData(String pathToFile) throws FileNotFoundException, IOException {
-	    
-		DoubleHashMap<String, Double> h = new DoubleHashMap<String, Double>(2000, 1, 4271, 223);
-	    BufferedReader br = new BufferedReader(new FileReader(pathToFile));
-	    try {
-	        String line = br.readLine();
-	        while (line != null) {
-	            String[] pieces = line.trim().split("\\s+");
-	            if (pieces.length == 4){
-	                 h.put(pieces[0], Double.valueOf(pieces[1]));
-	                 System.out.println(pieces[0] + " --- " + pieces[1]);
-	                 System.out.println(h.size());
-	                 if(h.size() == 1642)
-	                 {
-	                	 System.out.println("about to break");
-	                 }
-	            }
-	            line = br.readLine();
-	        }
-	    } finally {
-	        br.close();
-	    }
-	    
-	    System.out.println("Put Collisions: " + h.putCollisions());
-	    System.out.println("Put Failures: " + h.putFailures());
-	    System.out.println("Total Collisions: " + h.totalCollisions());   
-        System.out.println("Max Collisions: " + h.maxCollisions());
-	        
-	}
-	
+	public void exploreData(String pathToFile, int size, int mult, int mod, int secMod)
+			throws FileNotFoundException, IOException
+	{
+		DoubleHashMap<String, Double> h = new DoubleHashMap<String, Double>(size, mult, mod, secMod);
+		BufferedReader br = new BufferedReader(new FileReader(pathToFile));
+		try
+		{
+			String line = br.readLine();
+			while (line != null)
+			{
+				String[] pieces = line.trim().split("\\s+");
+				if (pieces.length == 4)
+				{
+					try
+					{
+						h.put(pieces[0], Double.valueOf(pieces[1]));
+					}
+					catch(RuntimeException e)
+					{
+						
+					}
+				}
+				line = br.readLine();
+			}
+		}
+		finally
+		{
+			br.close();
+		}
+		System.out.println("Mult: " + mult);
+		System.out.println("Mod: " + mod);
+		System.out.println("secMod: " + secMod);
+		System.out.println("size: " + size);
+		System.out.println("Put Collisions: " + h.putCollisions());
+		System.out.println("Put Failures: " + h.putFailures());
+		System.out.println("Total Collisions: " + h.totalCollisions()); 
+		System.out.println("Max Collisions: " + h.maxCollisions());
+		System.out.println();
+	}	
 }
